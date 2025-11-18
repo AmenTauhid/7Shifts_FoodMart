@@ -1,0 +1,583 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		17D1F3B62ECD207C0087834C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 17D1F3A02ECD207A0087834C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 17D1F3A72ECD207A0087834C;
+			remoteInfo = 7Shifts_FoodMart;
+		};
+		17D1F3C02ECD207C0087834C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 17D1F3A02ECD207A0087834C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 17D1F3A72ECD207A0087834C;
+			remoteInfo = 7Shifts_FoodMart;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		17D1F3A82ECD207A0087834C /* 7Shifts_FoodMart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 7Shifts_FoodMart.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		17D1F3B52ECD207C0087834C /* 7Shifts_FoodMartTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = 7Shifts_FoodMartTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		17D1F3BF2ECD207C0087834C /* 7Shifts_FoodMartUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = 7Shifts_FoodMartUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		17D1F3AA2ECD207A0087834C /* 7Shifts_FoodMart */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = 7Shifts_FoodMart;
+			sourceTree = "<group>";
+		};
+		17D1F3B82ECD207C0087834C /* 7Shifts_FoodMartTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = 7Shifts_FoodMartTests;
+			sourceTree = "<group>";
+		};
+		17D1F3C22ECD207C0087834C /* 7Shifts_FoodMartUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = 7Shifts_FoodMartUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		17D1F3A52ECD207A0087834C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		17D1F3B22ECD207C0087834C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		17D1F3BC2ECD207C0087834C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		17D1F39F2ECD207A0087834C = {
+			isa = PBXGroup;
+			children = (
+				17D1F3AA2ECD207A0087834C /* 7Shifts_FoodMart */,
+				17D1F3B82ECD207C0087834C /* 7Shifts_FoodMartTests */,
+				17D1F3C22ECD207C0087834C /* 7Shifts_FoodMartUITests */,
+				17D1F3A92ECD207A0087834C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		17D1F3A92ECD207A0087834C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				17D1F3A82ECD207A0087834C /* 7Shifts_FoodMart.app */,
+				17D1F3B52ECD207C0087834C /* 7Shifts_FoodMartTests.xctest */,
+				17D1F3BF2ECD207C0087834C /* 7Shifts_FoodMartUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		17D1F3A72ECD207A0087834C /* 7Shifts_FoodMart */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 17D1F3C92ECD207C0087834C /* Build configuration list for PBXNativeTarget "7Shifts_FoodMart" */;
+			buildPhases = (
+				17D1F3A42ECD207A0087834C /* Sources */,
+				17D1F3A52ECD207A0087834C /* Frameworks */,
+				17D1F3A62ECD207A0087834C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				17D1F3AA2ECD207A0087834C /* 7Shifts_FoodMart */,
+			);
+			name = 7Shifts_FoodMart;
+			packageProductDependencies = (
+			);
+			productName = 7Shifts_FoodMart;
+			productReference = 17D1F3A82ECD207A0087834C /* 7Shifts_FoodMart.app */;
+			productType = "com.apple.product-type.application";
+		};
+		17D1F3B42ECD207C0087834C /* 7Shifts_FoodMartTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 17D1F3CC2ECD207C0087834C /* Build configuration list for PBXNativeTarget "7Shifts_FoodMartTests" */;
+			buildPhases = (
+				17D1F3B12ECD207C0087834C /* Sources */,
+				17D1F3B22ECD207C0087834C /* Frameworks */,
+				17D1F3B32ECD207C0087834C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				17D1F3B72ECD207C0087834C /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				17D1F3B82ECD207C0087834C /* 7Shifts_FoodMartTests */,
+			);
+			name = 7Shifts_FoodMartTests;
+			packageProductDependencies = (
+			);
+			productName = 7Shifts_FoodMartTests;
+			productReference = 17D1F3B52ECD207C0087834C /* 7Shifts_FoodMartTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		17D1F3BE2ECD207C0087834C /* 7Shifts_FoodMartUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 17D1F3CF2ECD207C0087834C /* Build configuration list for PBXNativeTarget "7Shifts_FoodMartUITests" */;
+			buildPhases = (
+				17D1F3BB2ECD207C0087834C /* Sources */,
+				17D1F3BC2ECD207C0087834C /* Frameworks */,
+				17D1F3BD2ECD207C0087834C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				17D1F3C12ECD207C0087834C /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				17D1F3C22ECD207C0087834C /* 7Shifts_FoodMartUITests */,
+			);
+			name = 7Shifts_FoodMartUITests;
+			packageProductDependencies = (
+			);
+			productName = 7Shifts_FoodMartUITests;
+			productReference = 17D1F3BF2ECD207C0087834C /* 7Shifts_FoodMartUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		17D1F3A02ECD207A0087834C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2610;
+				LastUpgradeCheck = 2610;
+				TargetAttributes = {
+					17D1F3A72ECD207A0087834C = {
+						CreatedOnToolsVersion = 26.1.1;
+					};
+					17D1F3B42ECD207C0087834C = {
+						CreatedOnToolsVersion = 26.1.1;
+						TestTargetID = 17D1F3A72ECD207A0087834C;
+					};
+					17D1F3BE2ECD207C0087834C = {
+						CreatedOnToolsVersion = 26.1.1;
+						TestTargetID = 17D1F3A72ECD207A0087834C;
+					};
+				};
+			};
+			buildConfigurationList = 17D1F3A32ECD207A0087834C /* Build configuration list for PBXProject "7Shifts_FoodMart" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 17D1F39F2ECD207A0087834C;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 17D1F3A92ECD207A0087834C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				17D1F3A72ECD207A0087834C /* 7Shifts_FoodMart */,
+				17D1F3B42ECD207C0087834C /* 7Shifts_FoodMartTests */,
+				17D1F3BE2ECD207C0087834C /* 7Shifts_FoodMartUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		17D1F3A62ECD207A0087834C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		17D1F3B32ECD207C0087834C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		17D1F3BD2ECD207C0087834C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		17D1F3A42ECD207A0087834C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		17D1F3B12ECD207C0087834C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		17D1F3BB2ECD207C0087834C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		17D1F3B72ECD207C0087834C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 17D1F3A72ECD207A0087834C /* 7Shifts_FoodMart */;
+			targetProxy = 17D1F3B62ECD207C0087834C /* PBXContainerItemProxy */;
+		};
+		17D1F3C12ECD207C0087834C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 17D1F3A72ECD207A0087834C /* 7Shifts_FoodMart */;
+			targetProxy = 17D1F3C02ECD207C0087834C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		17D1F3C72ECD207C0087834C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = P8UJ79LC44;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.1;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		17D1F3C82ECD207C0087834C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = P8UJ79LC44;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.1;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		17D1F3CA2ECD207C0087834C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P8UJ79LC44;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "amen.-Shifts-FoodMart";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		17D1F3CB2ECD207C0087834C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P8UJ79LC44;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "amen.-Shifts-FoodMart";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		17D1F3CD2ECD207C0087834C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P8UJ79LC44;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "amen.-Shifts-FoodMartTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/7Shifts_FoodMart.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/7Shifts_FoodMart";
+			};
+			name = Debug;
+		};
+		17D1F3CE2ECD207C0087834C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P8UJ79LC44;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "amen.-Shifts-FoodMartTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/7Shifts_FoodMart.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/7Shifts_FoodMart";
+			};
+			name = Release;
+		};
+		17D1F3D02ECD207C0087834C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P8UJ79LC44;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "amen.-Shifts-FoodMartUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = 7Shifts_FoodMart;
+			};
+			name = Debug;
+		};
+		17D1F3D12ECD207C0087834C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P8UJ79LC44;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "amen.-Shifts-FoodMartUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = 7Shifts_FoodMart;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		17D1F3A32ECD207A0087834C /* Build configuration list for PBXProject "7Shifts_FoodMart" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				17D1F3C72ECD207C0087834C /* Debug */,
+				17D1F3C82ECD207C0087834C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		17D1F3C92ECD207C0087834C /* Build configuration list for PBXNativeTarget "7Shifts_FoodMart" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				17D1F3CA2ECD207C0087834C /* Debug */,
+				17D1F3CB2ECD207C0087834C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		17D1F3CC2ECD207C0087834C /* Build configuration list for PBXNativeTarget "7Shifts_FoodMartTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				17D1F3CD2ECD207C0087834C /* Debug */,
+				17D1F3CE2ECD207C0087834C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		17D1F3CF2ECD207C0087834C /* Build configuration list for PBXNativeTarget "7Shifts_FoodMartUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				17D1F3D02ECD207C0087834C /* Debug */,
+				17D1F3D12ECD207C0087834C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 17D1F3A02ECD207A0087834C /* Project object */;
+}
