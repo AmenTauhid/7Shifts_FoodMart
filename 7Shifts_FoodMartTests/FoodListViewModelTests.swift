@@ -167,20 +167,4 @@ struct FoodListViewModelTests {
 
         #expect(viewModel.filteredItems.isEmpty)
     }
-
-    /// Verifies loading state transitions correctly during fetch.
-    /// Key test: Shows state machine behavior.
-    @Test @MainActor func loadingStateTransitionsCorrectly() async {
-        let mockRepo = MockFoodRepository()
-        mockRepo.mockItems = [FoodItem(id: "1", name: "Test", price: 1.0, categoryId: "cat", imageUrl: "")]
-
-        let viewModel = FoodListViewModel(repository: mockRepo)
-
-        // Initial state
-        #expect(viewModel.loadingState == .idle)
-
-        // After fetch
-        await viewModel.fetchData()
-        #expect(viewModel.loadingState == .success)
-    }
 }

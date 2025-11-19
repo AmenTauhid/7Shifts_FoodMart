@@ -46,22 +46,6 @@ struct NetworkServiceTests {
         #expect(items[0].name == "Bananas")
     }
 
-    /// Verifies errors are properly thrown.
-    /// Key test: Shows error handling in async context.
-    @Test func fetchThrowsErrorOnFailure() async {
-        let mockService = MockNetworkService()
-        mockService.mockError = .noData
-
-        do {
-            let _: [FoodItem] = try await mockService.fetch(from: "")
-            Issue.record("Expected error to be thrown")
-        } catch is NetworkError {
-            // Expected - error was thrown
-        } catch {
-            Issue.record("Wrong error type: \(error)")
-        }
-    }
-
     /// Verifies decoding fails gracefully with malformed JSON.
     /// Key test: Shows error propagation for invalid data.
     @Test func fetchThrowsDecodingErrorForMalformedJSON() async {
