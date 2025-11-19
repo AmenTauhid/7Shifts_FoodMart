@@ -4,7 +4,7 @@ import Foundation
 /// - Conforms to `Identifiable` for SwiftUI list rendering
 /// - Conforms to `Codable` for JSON decoding
 /// - Uses `CodingKeys` to map snake_case API fields to camelCase properties
-struct FoodItem: Identifiable, Codable {
+struct FoodItem: Identifiable, Codable, Sendable {
     let id: String
     let name: String
     let price: Double

@@ -8,7 +8,6 @@ A simple iOS grocery shopping app built with SwiftUI.
 - Filter items by category
 - Pull to refresh
 - Error handling with retry
-- iMessage-inspired UI design
 
 ## Architecture
 
@@ -28,7 +27,6 @@ The app follows **MVVM** (Model-View-ViewModel) pattern:
 
 - iOS 16.0+
 - Xcode 15.0+
-- Swift 5.9+
 
 ## Setup
 
@@ -60,14 +58,6 @@ UI tests verify:
 - Category toggling
 - Pull to refresh
 
-## Key Technologies
-
-- SwiftUI
-- Swift Concurrency (async/await)
-- Combine
-- URLSession
-- XCTest / Swift Testing
-
 ## Design Decisions
 
 ### Why MVVM?
@@ -84,10 +74,3 @@ UI tests verify:
 - **Abstraction**: ViewModel doesn't know about network details
 - **Single source of truth**: All data access goes through repository
 - **Flexibility**: Easy to add caching or local storage later
-
-### Key Swift Features Used
-- **async/await**: Modern concurrency for network calls
-- **@MainActor**: Ensures UI updates on main thread
-- **@Published**: SwiftUI observes changes automatically
-- **Generics**: `fetch<T: Decodable>` works with any model
-- **async let**: Concurrent fetching for better performance
