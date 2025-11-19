@@ -1,4 +1,4 @@
-# FoodMart
+# FoodMart by Ayman Tauhid
 
 A simple iOS grocery shopping app built with SwiftUI.
 
