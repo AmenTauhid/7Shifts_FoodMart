@@ -5,6 +5,8 @@ import Combine
 final class FoodListViewModel: ObservableObject {
     @Published var foodItems: [FoodItem] = []
     @Published var categories: [FoodCategory] = []
+    @Published var filteredItems: [FoodItem] = []
+    @Published var selectedCategoryIds: Set<String> = []
     @Published var loadingState: LoadingState = .idle
 
     private let repository: FoodRepositoryProtocol
@@ -20,6 +22,7 @@ final class FoodListViewModel: ObservableObject {
             let (items, categories) = try await repository.fetchAllData()
             self.foodItems = items
             self.categories = categories
+            applyFilters()
             loadingState = .success
         } catch let error as NetworkError {
             loadingState = .error(error.localizedDescription)
@@ -28,9 +31,31 @@ final class FoodListViewModel: ObservableObject {
         }
     }
 
+    func toggleCategory(_ categoryId: String) {
+        if selectedCategoryIds.contains(categoryId) {
+            selectedCategoryIds.remove(categoryId)
+        } else {
+            selectedCategoryIds.insert(categoryId)
+        }
+        applyFilters()
+    }
+
+    private func applyFilters() {
+        if selectedCategoryIds.isEmpty {
+            filteredItems = foodItems
+        } else {
+            filteredItems = foodItems.filter { selectedCategoryIds.contains($0.categoryId) }
+        }
+    }
+
     func retry() {
         Task {
             await fetchData()
         }
+    }
+
+    func clearFilters() {
+        selectedCategoryIds.removeAll()
+        applyFilters()
     }
 }

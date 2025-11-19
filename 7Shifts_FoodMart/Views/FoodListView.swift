@@ -4,6 +4,7 @@ struct FoodListView: View {
     @StateObject private var viewModel = FoodListViewModel(
         repository: FoodRepository(networkService: NetworkService())
     )
+    @State private var showingFilterSheet = false
 
     private let columns = [
         GridItem(.flexible()),
@@ -21,15 +22,20 @@ struct FoodListView: View {
 
                 case .success:
                     ScrollView {
-                        LazyVGrid(columns: columns, spacing: 16) {
-                            ForEach(viewModel.foodItems) { item in
+                        LazyVGrid(columns: columns, spacing: 12) {
+                            ForEach(viewModel.filteredItems) { item in
                                 FoodItemCard(
                                     item: item,
                                     categoryName: categoryName(for: item)
                                 )
                             }
                         }
-                        .padding()
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 8)
+                    }
+                    .background(Color(.systemBackground))
+                    .refreshable {
+                        await viewModel.fetchData()
                     }
 
                 case .error(let message):
@@ -37,6 +43,32 @@ struct FoodListView: View {
                 }
             }
             .navigationTitle("Food")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        showingFilterSheet = true
+                    } label: {
+                        HStack(spacing: 4) {
+                            Text("Filter")
+                            if !viewModel.selectedCategoryIds.isEmpty {
+                                Text("\(viewModel.selectedCategoryIds.count)")
+                                    .font(.caption2)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.white)
+                                    .padding(.horizontal, 6)
+                                    .padding(.vertical, 2)
+                                    .background(Color.blue)
+                                    .clipShape(Capsule())
+                            }
+                        }
+                    }
+                }
+            }
+            .sheet(isPresented: $showingFilterSheet) {
+                CategoryFilterSheet(viewModel: viewModel)
+                    .presentationDetents([.medium])
+                    .presentationDragIndicator(.visible)
+            }
         }
         .task {
             await viewModel.fetchData()
