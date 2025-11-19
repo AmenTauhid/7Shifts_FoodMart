@@ -11,7 +11,7 @@ import SwiftUI
 struct _Shifts_FoodMartApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            FoodListView()
         }
     }
 }
