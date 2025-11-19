@@ -15,10 +15,14 @@ struct FoodItem: Identifiable, Codable {
         case imageUrl = "image_url"
     }
 
-    var formattedPrice: String {
+    private static let priceFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.locale = Locale.current
-        return formatter.string(from: NSNumber(value: price)) ?? "$\(String(format: "%.2f", price))"
+        return formatter
+    }()
+
+    var formattedPrice: String {
+        return FoodItem.priceFormatter.string(from: NSNumber(value: price)) ?? "$\(String(format: "%.2f", price))"
     }
 }
