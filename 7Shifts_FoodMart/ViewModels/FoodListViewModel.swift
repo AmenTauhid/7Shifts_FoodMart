@@ -5,15 +5,9 @@ import Combine
 final class FoodListViewModel: ObservableObject {
     @Published var foodItems: [FoodItem] = []
     @Published var categories: [FoodCategory] = []
-    @Published var loadingState: LoadingState = .idle
+    @Published var filteredItems: [FoodItem] = []
     @Published var selectedCategoryIds: Set<String> = []
-
-    var filteredItems: [FoodItem] {
-        if selectedCategoryIds.isEmpty {
-            return foodItems
-        }
-        return foodItems.filter { selectedCategoryIds.contains($0.categoryId) }
-    }
+    @Published var loadingState: LoadingState = .idle
 
     private let repository: FoodRepositoryProtocol
 
@@ -28,17 +22,12 @@ final class FoodListViewModel: ObservableObject {
             let (items, categories) = try await repository.fetchAllData()
             self.foodItems = items
             self.categories = categories
+            applyFilters()
             loadingState = .success
         } catch let error as NetworkError {
             loadingState = .error(error.localizedDescription)
         } catch {
             loadingState = .error("An unexpected error occurred. Please try again.")
-        }
-    }
-
-    func retry() {
-        Task {
-            await fetchData()
         }
     }
 
@@ -48,9 +37,20 @@ final class FoodListViewModel: ObservableObject {
         } else {
             selectedCategoryIds.insert(categoryId)
         }
+        applyFilters()
     }
 
-    func clearFilters() {
-        selectedCategoryIds.removeAll()
+    private func applyFilters() {
+        if selectedCategoryIds.isEmpty {
+            filteredItems = foodItems
+        } else {
+            filteredItems = foodItems.filter { selectedCategoryIds.contains($0.categoryId) }
+        }
+    }
+
+    func retry() {
+        Task {
+            await fetchData()
+        }
     }
 }
