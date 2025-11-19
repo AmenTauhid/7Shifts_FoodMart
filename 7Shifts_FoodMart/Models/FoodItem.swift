@@ -1,5 +1,9 @@
 import Foundation
 
+/// Represents a food item from the API.
+/// - Conforms to `Identifiable` for SwiftUI list rendering
+/// - Conforms to `Codable` for JSON decoding
+/// - Uses `CodingKeys` to map snake_case API fields to camelCase properties
 struct FoodItem: Identifiable, Codable {
     let id: String
     let name: String
@@ -15,14 +19,18 @@ struct FoodItem: Identifiable, Codable {
         case imageUrl = "image_url"
     }
 
+    // MARK: - Price Formatting
+
+    /// Static formatter for performance - created once, reused for all instances
     private static let priceFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
-        formatter.locale = Locale.current
+        formatter.currencySymbol = "$"
         return formatter
     }()
 
+    /// Returns price as formatted currency string (e.g., "$1.49")
     var formattedPrice: String {
-        return FoodItem.priceFormatter.string(from: NSNumber(value: price)) ?? "$\(String(format: "%.2f", price))"
+        FoodItem.priceFormatter.string(from: NSNumber(value: price)) ?? "$\(String(format: "%.2f", price))"
     }
 }

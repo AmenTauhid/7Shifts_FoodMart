@@ -1,5 +1,7 @@
 import Foundation
 
+/// Centralized API endpoint URLs.
+/// Using an enum with static properties prevents instantiation.
 enum APIEndpoints {
     static let baseURL = "https://7shifts.github.io/mobile-takehome/api"
 

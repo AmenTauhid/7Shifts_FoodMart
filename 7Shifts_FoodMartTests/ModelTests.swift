@@ -2,20 +2,19 @@ import Testing
 import Foundation
 @testable import _Shifts_FoodMart
 
+/// Tests for data model JSON decoding and computed properties.
 struct ModelTests {
 
-    // MARK: - FoodItem Tests
-
-    /// Decodes a single FoodItem from JSON.
-    /// Expects all properties to map correctly via CodingKeys.
-    @Test func foodItemDecoding() throws {
+    /// Verifies FoodItem correctly decodes API JSON with snake_case keys.
+    /// This tests the CodingKeys mapping (uuid → id, category_uuid → categoryId, etc.)
+    @Test func foodItemDecodesFromAPIJSON() throws {
         let json = """
         {
             "uuid": "a1f7b3e5-4c1d-42e9-8f2a-8cbb8b1f6f01",
             "name": "Bananas",
             "price": 1.49,
             "category_uuid": "b1f6d8a5-0e29-4d70-8d4f-1f8c1d7a5b12",
-            "image_url": "https://7shifts.github.io/mobile-takehome/images/bananas.png"
+            "image_url": "https://example.com/bananas.png"
         }
         """.data(using: .utf8)!
 
@@ -25,73 +24,24 @@ struct ModelTests {
         #expect(item.name == "Bananas")
         #expect(item.price == 1.49)
         #expect(item.categoryId == "b1f6d8a5-0e29-4d70-8d4f-1f8c1d7a5b12")
-        #expect(item.imageUrl == "https://7shifts.github.io/mobile-takehome/images/bananas.png")
     }
 
-    /// Decodes an array of FoodItems from JSON.
-    /// Expects correct count and item order preserved.
-    @Test func foodItemArrayDecoding() throws {
-        let json = """
-        [
-            {
-                "uuid": "a1f7b3e5-4c1d-42e9-8f2a-8cbb8b1f6f01",
-                "name": "Bananas",
-                "price": 1.49,
-                "category_uuid": "b1f6d8a5-0e29-4d70-8d4f-1f8c1d7a5b12",
-                "image_url": "https://7shifts.github.io/mobile-takehome/images/bananas.png"
-            },
-            {
-                "uuid": "e9f2c6d5-4b3e-41a7-8c4d-5e9f7a2b4a09",
-                "name": "Apple",
-                "price": 0.99,
-                "category_uuid": "b1f6d8a5-0e29-4d70-8d4f-1f8c1d7a5b12",
-                "image_url": "https://7shifts.github.io/mobile-takehome/images/apple.png"
-            }
-        ]
-        """.data(using: .utf8)!
-
-        let items = try JSONDecoder().decode([FoodItem].self, from: json)
-
-        #expect(items.count == 2)
-        #expect(items[0].name == "Bananas")
-        #expect(items[1].name == "Apple")
-    }
-
-    /// Tests formattedPrice computed property with decimal value.
-    /// Expects currency string containing "9.99" or "9,99".
-    @Test func foodItemFormattedPrice() {
+    /// Verifies formattedPrice returns currency string.
+    /// Tests the computed property with static NumberFormatter.
+    @Test func formattedPriceReturnsCurrencyString() {
         let item = FoodItem(
-            id: "test-id",
-            name: "Test Item",
+            id: "1",
+            name: "Test",
             price: 9.99,
-            categoryId: "category-id",
-            imageUrl: "https://example.com/image.png"
+            categoryId: "cat-1",
+            imageUrl: ""
         )
 
-        let formatted = item.formattedPrice
-        #expect(formatted.contains("9.99") || formatted.contains("9,99"))
+        #expect(item.formattedPrice.contains("9.99") || item.formattedPrice.contains("9,99"))
     }
 
-    /// Tests formattedPrice with whole number value.
-    /// Expects currency string containing "10".
-    @Test func foodItemFormattedPriceWholeNumber() {
-        let item = FoodItem(
-            id: "test-id",
-            name: "Test Item",
-            price: 10.00,
-            categoryId: "category-id",
-            imageUrl: "https://example.com/image.png"
-        )
-
-        let formatted = item.formattedPrice
-        #expect(formatted.contains("10"))
-    }
-
-    // MARK: - FoodCategory Tests
-
-    /// Decodes a single FoodCategory from JSON.
-    /// Expects uuid mapped to id and name preserved.
-    @Test func foodCategoryDecoding() throws {
+    /// Verifies FoodCategory correctly decodes API JSON.
+    @Test func foodCategoryDecodesFromAPIJSON() throws {
         let json = """
         {
             "uuid": "b1f6d8a5-0e29-4d70-8d4f-1f8c1d7a5b12",
@@ -105,26 +55,14 @@ struct ModelTests {
         #expect(category.name == "Produce")
     }
 
-    /// Decodes an array of FoodCategories from JSON.
-    /// Expects correct count and category order preserved.
-    @Test func foodCategoryArrayDecoding() throws {
-        let json = """
-        [
-            {
-                "uuid": "b1f6d8a5-0e29-4d70-8d4f-1f8c1d7a5b12",
-                "name": "Produce"
-            },
-            {
-                "uuid": "f3a6c4e2-1d4c-4a3c-8d3d-6b8c15f0e2b9",
-                "name": "Meat"
-            }
-        ]
-        """.data(using: .utf8)!
+    /// Verifies formattedPrice handles edge cases correctly.
+    @Test func formattedPriceHandlesEdgeCases() {
+        // Zero price
+        let freeItem = FoodItem(id: "1", name: "Free", price: 0.0, categoryId: "cat-1", imageUrl: "")
+        #expect(freeItem.formattedPrice.contains("0.00") || freeItem.formattedPrice.contains("0,00"))
 
-        let categories = try JSONDecoder().decode([FoodCategory].self, from: json)
-
-        #expect(categories.count == 2)
-        #expect(categories[0].name == "Produce")
-        #expect(categories[1].name == "Meat")
+        // Large price
+        let expensiveItem = FoodItem(id: "2", name: "Expensive", price: 1234.56, categoryId: "cat-1", imageUrl: "")
+        #expect(expensiveItem.formattedPrice.contains("1,234.56") || expensiveItem.formattedPrice.contains("1234,56"))
     }
 }

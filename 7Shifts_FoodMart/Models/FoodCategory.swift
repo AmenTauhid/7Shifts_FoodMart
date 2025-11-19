@@ -1,5 +1,7 @@
 import Foundation
 
+/// Represents a food category from the API.
+/// Used for filtering food items by category.
 struct FoodCategory: Identifiable, Codable {
     let id: String
     let name: String

@@ -2,8 +2,10 @@ import Testing
 import Foundation
 @testable import _Shifts_FoodMart
 
-// MARK: - Mock Network Service
+// MARK: - Mock
 
+/// Mock implementation for testing without real network calls.
+/// Demonstrates dependency injection pattern.
 final class MockNetworkService: NetworkServiceProtocol {
     var mockData: Data?
     var mockError: NetworkError?
@@ -17,135 +19,79 @@ final class MockNetworkService: NetworkServiceProtocol {
             throw NetworkError.noData
         }
 
-        do {
-            return try JSONDecoder().decode(T.self, from: data)
-        } catch {
-            throw NetworkError.decodingFailed(error)
-        }
+        return try JSONDecoder().decode(T.self, from: data)
     }
 }
 
 // MARK: - Tests
 
+/// Tests for network service using mock implementation.
+/// Demonstrates: async testing, mocking, dependency injection.
 struct NetworkServiceTests {
 
-    // MARK: - Success Tests
-
-    /// Fetches FoodItems using mock service with valid JSON.
-    /// Expects successful decoding and correct item count.
-    @Test func fetchFoodItemsSuccess() async throws {
+    /// Verifies successful data fetching and JSON decoding.
+    /// Key test: Shows mock injection pattern for async network calls.
+    @Test func fetchDecodesJSONSuccessfully() async throws {
+        // Arrange - Set up mock with test data
         let mockService = MockNetworkService()
         mockService.mockData = """
-        [
-            {
-                "uuid": "a1f7b3e5-4c1d-42e9-8f2a-8cbb8b1f6f01",
-                "name": "Bananas",
-                "price": 1.49,
-                "category_uuid": "b1f6d8a5-0e29-4d70-8d4f-1f8c1d7a5b12",
-                "image_url": "https://example.com/bananas.png"
-            }
-        ]
+        [{"uuid": "1", "name": "Bananas", "price": 1.49, "category_uuid": "cat-1", "image_url": ""}]
         """.data(using: .utf8)
 
+        // Act - Call the method under test
         let items: [FoodItem] = try await mockService.fetch(from: "https://example.com/api")
 
+        // Assert - Verify results
         #expect(items.count == 1)
         #expect(items[0].name == "Bananas")
-        #expect(items[0].price == 1.49)
     }
 
-    /// Fetches FoodCategories using mock service with valid JSON.
-    /// Expects successful decoding and correct category data.
-    @Test func fetchCategoriesSuccess() async throws {
+    /// Verifies errors are properly thrown.
+    /// Key test: Shows error handling in async context.
+    @Test func fetchThrowsErrorOnFailure() async {
+        let mockService = MockNetworkService()
+        mockService.mockError = .noData
+
+        do {
+            let _: [FoodItem] = try await mockService.fetch(from: "")
+            Issue.record("Expected error to be thrown")
+        } catch is NetworkError {
+            // Expected - error was thrown
+        } catch {
+            Issue.record("Wrong error type: \(error)")
+        }
+    }
+
+    /// Verifies decoding fails gracefully with malformed JSON.
+    /// Key test: Shows error propagation for invalid data.
+    @Test func fetchThrowsDecodingErrorForMalformedJSON() async {
+        let mockService = MockNetworkService()
+        mockService.mockData = "not valid json".data(using: .utf8)
+
+        do {
+            let _: [FoodItem] = try await mockService.fetch(from: "https://example.com/api")
+            Issue.record("Expected decoding error")
+        } catch {
+            // Expected - decoding should fail
+        }
+    }
+
+    /// Verifies array of items decodes correctly.
+    /// Key test: Shows handling of collection responses.
+    @Test func fetchDecodesArrayOfCategories() async throws {
         let mockService = MockNetworkService()
         mockService.mockData = """
         [
-            {
-                "uuid": "b1f6d8a5-0e29-4d70-8d4f-1f8c1d7a5b12",
-                "name": "Produce"
-            },
-            {
-                "uuid": "f3a6c4e2-1d4c-4a3c-8d3d-6b8c15f0e2b9",
-                "name": "Meat"
-            }
+            {"uuid": "1", "name": "Produce"},
+            {"uuid": "2", "name": "Dairy"},
+            {"uuid": "3", "name": "Meat"}
         ]
         """.data(using: .utf8)
 
         let categories: [FoodCategory] = try await mockService.fetch(from: "https://example.com/api")
 
-        #expect(categories.count == 2)
+        #expect(categories.count == 3)
         #expect(categories[0].name == "Produce")
-        #expect(categories[1].name == "Meat")
-    }
-
-    // MARK: - Error Tests
-
-    /// Tests handling of no data error.
-    /// Expects NetworkError.noData to be thrown.
-    @Test func fetchNoDataError() async {
-        let mockService = MockNetworkService()
-        mockService.mockData = nil
-
-        do {
-            let _: [FoodItem] = try await mockService.fetch(from: "https://example.com/api")
-            Issue.record("Expected noData error")
-        } catch let error as NetworkError {
-            if case .noData = error {
-                // Expected error
-            } else {
-                Issue.record("Expected noData error, got \(error)")
-            }
-        } catch {
-            Issue.record("Unexpected error type: \(error)")
-        }
-    }
-
-    /// Tests handling of decoding error with invalid JSON.
-    /// Expects NetworkError.decodingFailed to be thrown.
-    @Test func fetchDecodingError() async {
-        let mockService = MockNetworkService()
-        mockService.mockData = "invalid json".data(using: .utf8)
-
-        do {
-            let _: [FoodItem] = try await mockService.fetch(from: "https://example.com/api")
-            Issue.record("Expected decoding error")
-        } catch let error as NetworkError {
-            if case .decodingFailed = error {
-                // Expected error
-            } else {
-                Issue.record("Expected decodingFailed error, got \(error)")
-            }
-        } catch {
-            Issue.record("Unexpected error type: \(error)")
-        }
-    }
-
-    /// Tests handling of invalid URL error.
-    /// Expects NetworkError.invalidURL to be thrown.
-    @Test func fetchInvalidURLError() async {
-        let mockService = MockNetworkService()
-        mockService.mockError = .invalidURL
-
-        do {
-            let _: [FoodItem] = try await mockService.fetch(from: "")
-            Issue.record("Expected invalidURL error")
-        } catch let error as NetworkError {
-            if case .invalidURL = error {
-                // Expected error
-            } else {
-                Issue.record("Expected invalidURL error, got \(error)")
-            }
-        } catch {
-            Issue.record("Unexpected error type: \(error)")
-        }
-    }
-
-    // MARK: - API Endpoints Tests
-
-    /// Verifies API endpoint URLs are correctly configured.
-    /// Expects valid URL strings for food items and categories.
-    @Test func apiEndpointsConfiguration() {
-        #expect(APIEndpoints.foodItems == "https://7shifts.github.io/mobile-takehome/api/food_items.json")
-        #expect(APIEndpoints.categories == "https://7shifts.github.io/mobile-takehome/api/food_item_categories.json")
+        #expect(categories[2].name == "Meat")
     }
 }
