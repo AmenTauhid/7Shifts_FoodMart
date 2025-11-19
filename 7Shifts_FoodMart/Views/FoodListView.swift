@@ -32,9 +32,8 @@ struct FoodListView: View {
                         .padding()
                     }
 
-                case .error:
-                    // Will add error view in next commit
-                    EmptyView()
+                case .error(let message):
+                    ErrorView(message: message, onRetry: viewModel.retry)
                 }
             }
             .navigationTitle("Food")
