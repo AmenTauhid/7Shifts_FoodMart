@@ -6,6 +6,14 @@ final class FoodListViewModel: ObservableObject {
     @Published var foodItems: [FoodItem] = []
     @Published var categories: [FoodCategory] = []
     @Published var loadingState: LoadingState = .idle
+    @Published var selectedCategoryIds: Set<String> = []
+
+    var filteredItems: [FoodItem] {
+        if selectedCategoryIds.isEmpty {
+            return foodItems
+        }
+        return foodItems.filter { selectedCategoryIds.contains($0.categoryId) }
+    }
 
     private let repository: FoodRepositoryProtocol
 
@@ -32,5 +40,17 @@ final class FoodListViewModel: ObservableObject {
         Task {
             await fetchData()
         }
+    }
+
+    func toggleCategory(_ categoryId: String) {
+        if selectedCategoryIds.contains(categoryId) {
+            selectedCategoryIds.remove(categoryId)
+        } else {
+            selectedCategoryIds.insert(categoryId)
+        }
+    }
+
+    func clearFilters() {
+        selectedCategoryIds.removeAll()
     }
 }

@@ -31,6 +31,9 @@ struct FoodListView: View {
                         }
                         .padding()
                     }
+                    .refreshable {
+                        await viewModel.fetchData()
+                    }
 
                 case .error(let message):
                     ErrorView(message: message, onRetry: viewModel.retry)

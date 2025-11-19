@@ -16,9 +16,12 @@ final class NetworkService: NetworkServiceProtocol {
             throw NetworkError.invalidURL
         }
 
+        var request = URLRequest(url: url)
+        request.cachePolicy = .reloadIgnoringLocalCacheData
+
         let data: Data
         do {
-            let (responseData, _) = try await session.data(from: url)
+            let (responseData, _) = try await session.data(for: request)
             data = responseData
         } catch {
             throw NetworkError.requestFailed(error)
