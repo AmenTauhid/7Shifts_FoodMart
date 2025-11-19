@@ -1,41 +1,86 @@
-//
-//  _Shifts_FoodMartUITests.swift
-//  7Shifts_FoodMartUITests
-//
-//  Created by Ayman Tauhid on 2025-11-18.
-//
-
 import XCTest
 
 final class _Shifts_FoodMartUITests: XCTestCase {
 
+    var app: XCUIApplication!
+
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-
-        // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
-
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
+        app = XCUIApplication()
+        app.launch()
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        app = nil
     }
 
-    @MainActor
-    func testExample() throws {
-        // UI tests must launch the application that they test.
-        let app = XCUIApplication()
-        app.launch()
+    // MARK: - App Launch Tests
 
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    /// Verifies app launches with navigation title and filter button.
+    @MainActor
+    func testAppLaunchShowsNavigationElements() throws {
+        XCTAssertTrue(app.navigationBars["Food"].exists)
+        XCTAssertTrue(app.buttons["Filter"].waitForExistence(timeout: 5))
     }
 
+    /// Verifies food items appear after loading.
     @MainActor
-    func testLaunchPerformance() throws {
-        // This measures how long it takes to launch your application.
-        measure(metrics: [XCTApplicationLaunchMetric()]) {
-            XCUIApplication().launch()
-        }
+    func testFoodItemsLoadSuccessfully() throws {
+        // Wait for content to load
+        let firstCell = app.scrollViews.firstMatch
+        XCTAssertTrue(firstCell.waitForExistence(timeout: 10))
+    }
+
+    // MARK: - Filter Sheet Tests
+
+    /// Verifies filter button opens filter sheet.
+    @MainActor
+    func testFilterButtonOpensSheet() throws {
+        let filterButton = app.buttons["Filter"]
+        XCTAssertTrue(filterButton.waitForExistence(timeout: 5))
+
+        filterButton.tap()
+
+        // Verify sheet appears with filter title
+        let filterTitle = app.staticTexts["Filter"]
+        XCTAssertTrue(filterTitle.waitForExistence(timeout: 2))
+    }
+    
+
+    // MARK: - Category Filtering Tests
+
+    /// Verifies toggling a category filter works.
+    @MainActor
+    func testCategoryToggle() throws {
+        let filterButton = app.buttons["Filter"]
+        XCTAssertTrue(filterButton.waitForExistence(timeout: 5))
+
+        filterButton.tap()
+
+        // Wait for categories to load
+        let produceSwitch = app.switches.firstMatch
+        XCTAssertTrue(produceSwitch.waitForExistence(timeout: 5))
+
+        // Toggle the switch
+        produceSwitch.tap()
+
+        // Verify switch is now on
+        XCTAssertEqual(produceSwitch.value as? String, "1")
+    }
+
+    // MARK: - Pull to Refresh Test
+
+    /// Verifies pull to refresh gesture is available.
+    @MainActor
+    func testPullToRefreshExists() throws {
+        // Wait for scroll view to appear
+        let scrollView = app.scrollViews.firstMatch
+        XCTAssertTrue(scrollView.waitForExistence(timeout: 10))
+
+        // Perform pull to refresh gesture
+        scrollView.swipeDown()
+
+        // App should still be functional after refresh
+        XCTAssertTrue(app.navigationBars["Food"].exists)
     }
 }

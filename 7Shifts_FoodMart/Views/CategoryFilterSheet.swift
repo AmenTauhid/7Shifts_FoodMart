@@ -17,6 +17,15 @@ struct CategoryFilterSheet: View {
             .listStyle(.plain)
             .navigationTitle("Filter")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    if !viewModel.selectedCategoryIds.isEmpty {
+                        Button("Clear") {
+                            viewModel.clearFilters()
+                        }
+                    }
+                }
+            }
         }
     }
 }

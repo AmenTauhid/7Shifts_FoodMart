@@ -53,4 +53,9 @@ final class FoodListViewModel: ObservableObject {
             await fetchData()
         }
     }
+
+    func clearFilters() {
+        selectedCategoryIds.removeAll()
+        applyFilters()
+    }
 }
