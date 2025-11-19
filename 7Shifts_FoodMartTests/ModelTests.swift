@@ -6,7 +6,7 @@ struct ModelTests {
 
     // MARK: - FoodItem Tests
 
-    /// Decodes a single FoodItem from JSON..
+    /// Decodes a single FoodItem from JSON.
     /// Expects all properties to map correctly via CodingKeys.
     @Test func foodItemDecoding() throws {
         let json = """
