@@ -16,7 +16,13 @@ final class NetworkService: NetworkServiceProtocol {
             throw NetworkError.invalidURL
         }
 
-        let (data, _) = try await session.data(from: url)
+        let data: Data
+        do {
+            let (responseData, _) = try await session.data(from: url)
+            data = responseData
+        } catch {
+            throw NetworkError.requestFailed(error)
+        }
 
         guard !data.isEmpty else {
             throw NetworkError.noData
