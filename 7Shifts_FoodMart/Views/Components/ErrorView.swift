@@ -30,6 +30,7 @@ struct ErrorView: View {
                     .foregroundColor(.white)
                     .clipShape(Capsule())
             }
+            .accessibilityIdentifier("RetryButton")
             .padding(.top, 8)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

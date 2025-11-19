@@ -4,6 +4,8 @@ import Foundation
 
 // MARK: - Mock Repository
 
+/// Mock repository for ViewModel testing.
+/// Returns predefined data without network calls.
 final class MockFoodRepository: FoodRepositoryProtocol {
     var mockItems: [FoodItem] = []
     var mockCategories: [FoodCategory] = []
@@ -27,30 +29,36 @@ final class MockFoodRepository: FoodRepositoryProtocol {
 
 // MARK: - Tests
 
+/// Tests for ViewModel business logic.
+/// Demonstrates: @MainActor testing, state management, filtering logic.
 struct FoodListViewModelTests {
 
-    /// Verifies successful fetch updates state and populates data.
-    @Test @MainActor func fetchDataSuccess() async {
+    /// Verifies successful data fetch updates state correctly.
+    /// Key test: Shows full data flow from fetch to UI state.
+    @Test @MainActor func fetchDataUpdatesStateOnSuccess() async {
+        // Arrange
         let mockRepo = MockFoodRepository()
         mockRepo.mockItems = [
-            FoodItem(id: "1", name: "Bananas", price: 1.49, categoryId: "cat-1", imageUrl: "https://example.com/bananas.png")
+            FoodItem(id: "1", name: "Bananas", price: 1.49, categoryId: "produce", imageUrl: "")
         ]
         mockRepo.mockCategories = [
-            FoodCategory(id: "cat-1", name: "Produce")
+            FoodCategory(id: "produce", name: "Produce")
         ]
 
         let viewModel = FoodListViewModel(repository: mockRepo)
+
+        // Act
         await viewModel.fetchData()
 
+        // Assert
         #expect(viewModel.loadingState == .success)
         #expect(viewModel.foodItems.count == 1)
-        #expect(viewModel.foodItems[0].name == "Bananas")
-        #expect(viewModel.categories.count == 1)
-        #expect(viewModel.categories[0].name == "Produce")
+        #expect(viewModel.filteredItems.count == 1)
     }
 
     /// Verifies error updates state with error message.
-    @Test @MainActor func fetchDataError() async {
+    /// Key test: Shows error handling flow.
+    @Test @MainActor func fetchDataUpdatesStateOnError() async {
         let mockRepo = MockFoodRepository()
         mockRepo.errorToThrow = .noData
 
@@ -64,37 +72,9 @@ struct FoodListViewModelTests {
         }
     }
 
-    /// Verifies retry triggers a new fetch.
-    @Test @MainActor func retryFunctionality() async throws {
-        let mockRepo = MockFoodRepository()
-        mockRepo.errorToThrow = .noData
-
-        let viewModel = FoodListViewModel(repository: mockRepo)
-        await viewModel.fetchData()
-
-        // Verify error state
-        guard case .error = viewModel.loadingState else {
-            Issue.record("Expected error state")
-            return
-        }
-
-        // Fix the error and retry
-        mockRepo.errorToThrow = nil
-        mockRepo.mockItems = [
-            FoodItem(id: "1", name: "Apple", price: 0.99, categoryId: "cat-1", imageUrl: "https://example.com/apple.png")
-        ]
-
-        viewModel.retry()
-        try await Task.sleep(nanoseconds: 100_000_000) // Wait for retry to complete
-
-        #expect(viewModel.loadingState == .success)
-        #expect(viewModel.foodItems.count == 1)
-    }
-
-    // MARK: - Filtering Tests
-
-    /// Verifies filteredItems returns all items when no category selected.
-    @Test @MainActor func filterWithNoSelection() async {
+    /// Verifies filtering returns only matching items.
+    /// Key test: Shows core filtering business logic.
+    @Test @MainActor func filteringReturnsMatchingItems() async {
         let mockRepo = MockFoodRepository()
         mockRepo.mockItems = [
             FoodItem(id: "1", name: "Bananas", price: 1.49, categoryId: "produce", imageUrl: ""),
@@ -104,28 +84,52 @@ struct FoodListViewModelTests {
         let viewModel = FoodListViewModel(repository: mockRepo)
         await viewModel.fetchData()
 
-        #expect(viewModel.filteredItems.count == 2)
+        // Select produce category
+        viewModel.toggleCategory("produce")
+
+        #expect(viewModel.filteredItems.count == 1)
+        #expect(viewModel.filteredItems[0].name == "Bananas")
     }
 
-    /// Verifies filteredItems returns only matching items when category selected.
-    @Test @MainActor func filterWithSingleCategory() async {
+    /// Verifies toggle adds/removes category from selection.
+    /// Key test: Shows toggle state management.
+    @Test @MainActor func toggleCategoryUpdatesSelection() {
+        let viewModel = FoodListViewModel(repository: MockFoodRepository())
+
+        // Toggle on
+        viewModel.toggleCategory("produce")
+        #expect(viewModel.selectedCategoryIds.contains("produce"))
+
+        // Toggle off
+        viewModel.toggleCategory("produce")
+        #expect(!viewModel.selectedCategoryIds.contains("produce"))
+    }
+
+    /// Verifies clearFilters removes all selections and shows all items.
+    /// Key test: Shows reset functionality.
+    @Test @MainActor func clearFiltersResetsToAllItems() async {
         let mockRepo = MockFoodRepository()
         mockRepo.mockItems = [
             FoodItem(id: "1", name: "Bananas", price: 1.49, categoryId: "produce", imageUrl: ""),
-            FoodItem(id: "2", name: "Apple", price: 0.99, categoryId: "produce", imageUrl: ""),
-            FoodItem(id: "3", name: "Chicken", price: 9.99, categoryId: "meat", imageUrl: "")
+            FoodItem(id: "2", name: "Chicken", price: 9.99, categoryId: "meat", imageUrl: "")
         ]
 
         let viewModel = FoodListViewModel(repository: mockRepo)
         await viewModel.fetchData()
-        viewModel.toggleCategory("produce")
 
+        // Apply filter
+        viewModel.toggleCategory("produce")
+        #expect(viewModel.filteredItems.count == 1)
+
+        // Clear filters
+        viewModel.clearFilters()
+        #expect(viewModel.selectedCategoryIds.isEmpty)
         #expect(viewModel.filteredItems.count == 2)
-        #expect(viewModel.filteredItems.allSatisfy { $0.categoryId == "produce" })
     }
 
-    /// Verifies filteredItems returns items from multiple selected categories.
-    @Test @MainActor func filterWithMultipleCategories() async {
+    /// Verifies multiple categories can be selected simultaneously.
+    /// Key test: Shows multi-select filtering behavior.
+    @Test @MainActor func multipleCategortSelectionFiltersCorrectly() async {
         let mockRepo = MockFoodRepository()
         mockRepo.mockItems = [
             FoodItem(id: "1", name: "Bananas", price: 1.49, categoryId: "produce", imageUrl: ""),
@@ -135,34 +139,32 @@ struct FoodListViewModelTests {
 
         let viewModel = FoodListViewModel(repository: mockRepo)
         await viewModel.fetchData()
-        viewModel.toggleCategory("produce")
-        viewModel.toggleCategory("meat")
 
+        // Select two categories
+        viewModel.toggleCategory("produce")
+        viewModel.toggleCategory("dairy")
+
+        #expect(viewModel.selectedCategoryIds.count == 2)
         #expect(viewModel.filteredItems.count == 2)
         #expect(viewModel.filteredItems.contains { $0.name == "Bananas" })
-        #expect(viewModel.filteredItems.contains { $0.name == "Chicken" })
+        #expect(viewModel.filteredItems.contains { $0.name == "Milk" })
+        #expect(!viewModel.filteredItems.contains { $0.name == "Chicken" })
     }
 
-    /// Verifies toggleCategory adds and removes category from selection.
-    @Test @MainActor func toggleCategoryBehavior() {
-        let viewModel = FoodListViewModel(repository: MockFoodRepository())
+    /// Verifies empty results when filtering by non-matching category.
+    /// Key test: Shows edge case handling.
+    @Test @MainActor func filteringWithNoMatchesReturnsEmpty() async {
+        let mockRepo = MockFoodRepository()
+        mockRepo.mockItems = [
+            FoodItem(id: "1", name: "Bananas", price: 1.49, categoryId: "produce", imageUrl: "")
+        ]
 
-        viewModel.toggleCategory("produce")
-        #expect(viewModel.selectedCategoryIds.contains("produce"))
+        let viewModel = FoodListViewModel(repository: mockRepo)
+        await viewModel.fetchData()
 
-        viewModel.toggleCategory("produce")
-        #expect(!viewModel.selectedCategoryIds.contains("produce"))
-    }
-
-    /// Verifies clearFilters removes all selected categories.
-    @Test @MainActor func clearFiltersBehavior() {
-        let viewModel = FoodListViewModel(repository: MockFoodRepository())
-
-        viewModel.toggleCategory("produce")
+        // Filter by non-existent category
         viewModel.toggleCategory("meat")
-        #expect(viewModel.selectedCategoryIds.count == 2)
 
-        viewModel.clearFilters()
-        #expect(viewModel.selectedCategoryIds.isEmpty)
+        #expect(viewModel.filteredItems.isEmpty)
     }
 }

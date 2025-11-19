@@ -1,5 +1,6 @@
 import Foundation
 
+/// Repository layer that abstracts data fetching from the ViewModel.
 final class FoodRepository: FoodRepositoryProtocol {
     private let networkService: NetworkServiceProtocol
 
@@ -15,6 +16,8 @@ final class FoodRepository: FoodRepositoryProtocol {
         try await networkService.fetch(from: APIEndpoints.categories)
     }
 
+    /// Fetches both items and categories concurrently for better performance.
+    /// Uses `async let` to run both requests in parallel.
     func fetchAllData() async throws -> (items: [FoodItem], categories: [FoodCategory]) {
         async let items = fetchFoodItems()
         async let categories = fetchCategories()

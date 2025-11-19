@@ -1,5 +1,7 @@
 import SwiftUI
 
+/// Reusable card component displaying a food item.
+/// Shows image, price, name, and category.
 struct FoodItemCard: View {
     let item: FoodItem
     let categoryName: String?
@@ -37,7 +39,7 @@ struct FoodItemCard: View {
             .padding(.horizontal, 8)
 
             VStack(alignment: .leading, spacing: 2) {
-                Text(item.price.formatted)
+                Text(item.formattedPrice)
                     .font(.system(.headline, design: .rounded))
                     .fontWeight(.semibold)
 

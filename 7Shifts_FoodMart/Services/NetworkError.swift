@@ -1,5 +1,6 @@
 import Foundation
 
+/// Custom error types for network operations to provide user-friendly error messages.
 enum NetworkError: Error, LocalizedError {
     case invalidURL
     case requestFailed(Error)

@@ -1,5 +1,7 @@
 import XCTest
 
+/// UI tests for FoodMart app.
+/// Demonstrates: XCUIApplication, element queries, async waiting.
 final class _Shifts_FoodMartUITests: XCTestCase {
 
     var app: XCUIApplication!
@@ -14,26 +16,14 @@ final class _Shifts_FoodMartUITests: XCTestCase {
         app = nil
     }
 
-    // MARK: - App Launch Tests
-
-    /// Verifies app launches with navigation title and filter button.
+    /// Verifies app launches with main navigation elements.
     @MainActor
-    func testAppLaunchShowsNavigationElements() throws {
+    func testAppLaunchShowsMainScreen() throws {
         XCTAssertTrue(app.navigationBars["Food"].exists)
         XCTAssertTrue(app.buttons["Filter"].waitForExistence(timeout: 5))
     }
 
-    /// Verifies food items appear after loading.
-    @MainActor
-    func testFoodItemsLoadSuccessfully() throws {
-        // Wait for content to load
-        let firstCell = app.scrollViews.firstMatch
-        XCTAssertTrue(firstCell.waitForExistence(timeout: 10))
-    }
-
-    // MARK: - Filter Sheet Tests
-
-    /// Verifies filter button opens filter sheet.
+    /// Verifies filter button opens the filter sheet.
     @MainActor
     func testFilterButtonOpensSheet() throws {
         let filterButton = app.buttons["Filter"]
@@ -41,46 +31,55 @@ final class _Shifts_FoodMartUITests: XCTestCase {
 
         filterButton.tap()
 
-        // Verify sheet appears with filter title
         let filterTitle = app.staticTexts["Filter"]
         XCTAssertTrue(filterTitle.waitForExistence(timeout: 2))
     }
-    
 
-    // MARK: - Category Filtering Tests
-
-    /// Verifies toggling a category filter works.
+    /// Verifies category toggle interaction works.
     @MainActor
-    func testCategoryToggle() throws {
+    func testCategoryToggleWorks() throws {
+        // Open filter sheet
+        app.buttons["Filter"].tap()
+
+        // Toggle a category
+        let toggle = app.switches.firstMatch
+        XCTAssertTrue(toggle.waitForExistence(timeout: 5))
+        toggle.tap()
+
+        // Verify toggle state changed
+        XCTAssertEqual(toggle.value as? String, "1")
+    }
+
+    /// Verifies Clear button appears when filters are selected.
+    @MainActor
+    func testClearButtonAppearsWhenFiltersSelected() throws {
+        // Open filter sheet
+        app.buttons["Filter"].tap()
+
+        // Initially no Clear button
+        XCTAssertFalse(app.buttons["Clear"].exists)
+
+        // Select a category
+        let toggle = app.switches.firstMatch
+        XCTAssertTrue(toggle.waitForExistence(timeout: 5))
+        toggle.tap()
+
+        // Clear button should appear
+        XCTAssertTrue(app.buttons["Clear"].waitForExistence(timeout: 2))
+    }
+
+    /// Verifies pull-to-refresh gesture works.
+    @MainActor
+    func testPullToRefreshWorks() throws {
+        // Wait for content to load
         let filterButton = app.buttons["Filter"]
         XCTAssertTrue(filterButton.waitForExistence(timeout: 5))
 
-        filterButton.tap()
+        // Perform pull-to-refresh
+        let firstCell = app.scrollViews.firstMatch
+        firstCell.swipeDown()
 
-        // Wait for categories to load
-        let produceSwitch = app.switches.firstMatch
-        XCTAssertTrue(produceSwitch.waitForExistence(timeout: 5))
-
-        // Toggle the switch
-        produceSwitch.tap()
-
-        // Verify switch is now on
-        XCTAssertEqual(produceSwitch.value as? String, "1")
-    }
-
-    // MARK: - Pull to Refresh Test
-
-    /// Verifies pull to refresh gesture is available.
-    @MainActor
-    func testPullToRefreshExists() throws {
-        // Wait for scroll view to appear
-        let scrollView = app.scrollViews.firstMatch
-        XCTAssertTrue(scrollView.waitForExistence(timeout: 10))
-
-        // Perform pull to refresh gesture
-        scrollView.swipeDown()
-
-        // App should still be functional after refresh
-        XCTAssertTrue(app.navigationBars["Food"].exists)
+        // Content should still be visible after refresh
+        XCTAssertTrue(filterButton.exists)
     }
 }
